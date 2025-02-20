@@ -2,7 +2,7 @@ library(tidyverse)
 library(cluster)
 library(dendextend)
 
-# Load data 
+# Load data
 titles <- read.csv('data/titles.csv')
 
 titles <- titles %>%
@@ -17,9 +17,7 @@ hclust_result <- hclust(dist_matrix, method = "ward.D2")
 dend <- as.dendrogram(hclust_result) # Creating a Dendrogram
 dend <- hang.dendrogram(dend, hang = 0.1)
 
-#plot(dend, main = "Dendrogram of Hierarchical Clustering", ylab = "Height (dissimilarity)", cex.axis = 0.75)
 
-# This is subjective and can be based on the dendrogram or using statistical methods
 clusters <- cutree(hclust_result, k = 3)  # Assuming we decide on 4 clusters
 titles$cluster <- clusters
 
@@ -30,7 +28,7 @@ abline(h = 4, col = "red", lty = 2) # Creating horizontal cut line
 # Ploting the clustering results
 ggplot(titles, aes(x = runtime, y = imdb_score, color = cluster)) +
   geom_point(alpha = 0.6) +
-  labs(title = "Cluster Analysis of Netflix Movies/Shows by Runtime and IMDb Score",
+  labs(title = "Cluster Analysis of Netflix data by Runtime and IMDb Score",
       x = "Runtime",
       y = "IMDb Score") +
  theme_minimal()
